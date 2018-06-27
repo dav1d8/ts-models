@@ -2,7 +2,8 @@
   "name": "ts-models",
   "version": "0.0.1",
   "dependencies": {
-    "@angular/core": "5.0.0",
+    "@angular/core": "5.2.11",
+    "@angular/common": "5.2.11",
     "@types/lodash": "4.14.110",
     "lodash": "4.17.10",
     "rxjs": "5.5.2",
