@@ -4,8 +4,8 @@
   "description": "Model handler for angular 5",
   "main": "dist/index.js",
   "peerDependencies": {
-    "@angular/core": "5.2.11",
-    "@angular/common": "5.2.11"
+    "@angular/core": "^5.0.0",
+    "@angular/common": "^5.0.0"
   },
   "dependencies": {
     "@types/lodash": "4.14.110",
