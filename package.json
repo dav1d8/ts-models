@@ -1,6 +1,8 @@
 {
   "name": "ts-models",
   "version": "0.0.1",
+  "description": "Model handler for angular 5",
+  "main": "dist/index.js",
   "dependencies": {
     "@angular/core": "5.2.11",
     "@angular/common": "5.2.11",
@@ -13,5 +15,24 @@
     "typescript": "^2.6.1",
     "@types/jasmine": "2.6.2",
     "@types/node": "^8.0.47"
-  }
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dav1d8/ts-models.git"
+  },
+  "keywords": [
+    "angular",
+    "model",
+    "handler"
+  ],
+  "author": "kroatti",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dav1d8/ts-models/issues"
+  },
+  "homepage": "https://github.com/dav1d8/ts-models#readme"
 }

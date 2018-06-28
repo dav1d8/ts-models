@@ -10,7 +10,7 @@ function factoryMethod<TModel extends Model>(modelClass: ModelType, endpoint: st
             _store: Store) => new ModelClient<TModel>(modelClass, endpoint, _http, _store, _mediator);
 }
 
-export function adapterFactory<TModel extends Model>(token: any, modelClass: ModelType, endpoint: string) {
+export function clientFactory<TModel extends Model>(token: any, modelClass: ModelType, endpoint: string) {
     return {
         provide: token,
         useFactory: factoryMethod<TModel>(modelClass, endpoint),

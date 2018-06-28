@@ -3,7 +3,7 @@ import {Check} from "../utils/check";
 import {Obj} from "../utils/obj";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
-class ModelMap {
+export class ModelMap {
     private _map: Map<Map<Model>> = {};
     private _mapSubjects: Map<BehaviorSubject<Model[]>> = {};
 
@@ -68,9 +68,9 @@ class ModelMap {
 
 export const modelMap = new ModelMap();
 
-interface Slice<TModel extends Model> {
+export interface Slice<TModel extends Model> {
     map: Map<TModel>,
     source: BehaviorSubject<TModel[]>;
 }
 
-type Map<TValue> = { [key: string]: TValue }
+export type Map<TValue> = { [key: string]: TValue }
