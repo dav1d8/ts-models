@@ -8,17 +8,18 @@
     "@angular/common": "^5.0.0"
   },
   "dependencies": {
-    "@types/lodash": "4.14.110",
     "lodash": "4.17.10",
     "rxjs": "5.5.2",
-    "zone.js": "0.8.18"
+    "zone.js": "0.8.18",
+    "fast-json-patch": "^2.0.6"
   },
   "devDependencies": {
     "typescript": "2.6.1",
     "@types/jasmine": "2.6.2",
     "@types/node": "^8.0.47",
     "@angular/core": "5.2.11",
-    "@angular/common": "5.2.11"
+    "@angular/common": "5.2.11",
+    "@types/lodash": "4.14.110"
   },
   "scripts": {
     "build": "tsc",
