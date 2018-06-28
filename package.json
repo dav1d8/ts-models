@@ -3,18 +3,22 @@
   "version": "0.0.1",
   "description": "Model handler for angular 5",
   "main": "dist/index.js",
-  "dependencies": {
+  "peerDependencies": {
     "@angular/core": "5.2.11",
-    "@angular/common": "5.2.11",
+    "@angular/common": "5.2.11"
+  },
+  "dependencies": {
     "@types/lodash": "4.14.110",
     "lodash": "4.17.10",
     "rxjs": "5.5.2",
     "zone.js": "0.8.18"
   },
   "devDependencies": {
-    "typescript": "^2.6.1",
+    "typescript": "2.6.1",
     "@types/jasmine": "2.6.2",
-    "@types/node": "^8.0.47"
+    "@types/node": "^8.0.47",
+    "@angular/core": "5.2.11",
+    "@angular/common": "5.2.11"
   },
   "scripts": {
     "build": "tsc",

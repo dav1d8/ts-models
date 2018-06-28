@@ -1,5 +1,5 @@
-import {Model} from "../model/base-model";
-import {BehaviorList} from "../model/behavior-list";
+import {Model} from "../model";
+import {BehaviorList} from "../model";
 import {Obj} from "./obj";
 import * as _ from "lodash";
 import {Observable} from "rxjs/Rx";
