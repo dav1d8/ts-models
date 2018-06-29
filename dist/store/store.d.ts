@@ -2,12 +2,12 @@ import { Model, ModelType } from "../model/base-model";
 import { InjectionToken, TypeProvider } from "@angular/core";
 export interface StoreRegistration {
     entityType: ModelType;
-    adapter?: TypeProvider | InjectionToken<any>;
+    client?: TypeProvider | InjectionToken<any>;
 }
 export declare let modelTypeMap: {
     [key: string]: ModelType;
 };
-export declare let modelAdapterMap: {
+export declare let modelClientMap: {
     [key: string]: TypeProvider | InjectionToken<any> | undefined;
 };
 export declare function initStore(): void;

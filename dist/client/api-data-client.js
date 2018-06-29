@@ -15,9 +15,8 @@ var Rx_1 = require("rxjs/Rx");
 var check_1 = require("../utils/check");
 var ApiDataClient = /** @class */ (function (_super) {
     __extends(ApiDataClient, _super);
-    function ApiDataClient(typeConstructor, _baseUrl, _http, _mediator) {
+    function ApiDataClient(_baseUrl, _http, _mediator) {
         var _this = _super.call(this, _baseUrl, _http) || this;
-        _this.typeConstructor = typeConstructor;
         _this._baseUrl = _baseUrl;
         _this._http = _http;
         _this._mediator = _mediator;

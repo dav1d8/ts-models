@@ -7,7 +7,6 @@ export interface ApiResult {
     status: 'Failure' | 'Success';
 }
 export interface DataClient<T> {
-    typeConstructor: any;
     getById(id: number): Observable<T>;
     getOne(filter?: any): Observable<T>;
     getMany(filter?: any): Observable<T[]>;

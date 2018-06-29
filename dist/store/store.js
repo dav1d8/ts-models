@@ -5,7 +5,7 @@ var obj_1 = require("../utils/obj");
 var behavior_list_1 = require("../model/behavior-list");
 var check_1 = require("../utils/check");
 exports.modelTypeMap = {};
-exports.modelAdapterMap = {};
+exports.modelClientMap = {};
 function initStore() {
     model_map_1.modelMap.init();
     exports.modelTypeMap = {};
@@ -16,11 +16,11 @@ function register(modelArray) {
         var entry = modelArray_1[_i];
         if (entry.entityType) {
             exports.modelTypeMap[entry.entityType.schema.__modelName] = entry.entityType;
-            exports.modelAdapterMap[entry.entityType.schema.__modelName] = entry.adapter;
+            exports.modelClientMap[entry.entityType.schema.__modelName] = entry.client;
         }
         else {
             exports.modelTypeMap[entry.schema.__modelName] = entry;
-            exports.modelAdapterMap[entry.schema.__modelName] = undefined;
+            exports.modelClientMap[entry.schema.__modelName] = undefined;
         }
     }
 }
