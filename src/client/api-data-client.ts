@@ -1,17 +1,15 @@
 import {DataClient} from "./data-client";
 import {ApiClient} from "./api-client";
 import {Observable} from "rxjs/Rx";
-import {Model} from "../model/base-model";
+import {Model} from "../model";
 import {Check} from "../utils/check";
-import {PagedResult} from "../pagination/paged-result";
+import {PagedResult} from "../pagination";
 import {HttpClient} from "@angular/common/http";
 import {ClientMediator, RequestStartedEventArgs} from "./client-mediator.service";
 
-
 export class ApiDataClient<T extends Model> extends ApiClient implements DataClient<T> {
 
-    constructor(public typeConstructor: any,
-                protected _baseUrl: string,
+    constructor(protected _baseUrl: string,
                 protected _http: HttpClient,
                 protected _mediator: ClientMediator) {
         super(_baseUrl, _http);

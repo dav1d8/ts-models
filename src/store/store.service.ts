@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Model} from "../model/base-model";
+import {Model} from "../model";
 import {register, remove, process, StoreRegistration, processMany} from "./store";
 
 @Injectable()

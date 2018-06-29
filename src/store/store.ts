@@ -7,11 +7,11 @@ import {Check} from "../utils/check";
 
 export interface StoreRegistration {
     entityType: ModelType,
-    adapter?: TypeProvider | InjectionToken<any>
+    client?: TypeProvider | InjectionToken<any>
 }
 
 export let modelTypeMap: { [key: string]: ModelType } = {};
-export let modelAdapterMap: { [key: string]: TypeProvider | InjectionToken<any> | undefined } = {};
+export let modelClientMap: { [key: string]: TypeProvider | InjectionToken<any> | undefined } = {};
 
 export function initStore() {
     modelMap.init();
@@ -25,11 +25,11 @@ export function register(modelArray: Array<any>): void {
     for (let entry of modelArray) {
         if (entry.entityType) { // instance of StoreRegistration
             modelTypeMap[entry.entityType.schema.__modelName] = entry.entityType;
-            modelAdapterMap[entry.entityType.schema.__modelName] = entry.adapter;
+            modelClientMap[entry.entityType.schema.__modelName] = entry.client;
         }
         else { // instance of ModelType
             modelTypeMap[entry.schema.__modelName] = entry;
-            modelAdapterMap[entry.schema.__modelName] = undefined;
+            modelClientMap[entry.schema.__modelName] = undefined;
         }
     }
 }

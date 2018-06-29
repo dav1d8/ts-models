@@ -1,5 +1,6 @@
 import {Observable} from "rxjs";
 import {PagedResult} from "../pagination/paged-result";
+import {ModelType} from "../model/base-model";
 
 export interface ApiResult {
     payload: any | { $values: Array<any> };
@@ -7,7 +8,6 @@ export interface ApiResult {
 }
 
 export interface DataClient<T> {
-    typeConstructor: any;
     getById(id: number): Observable<T>;
     getOne(filter?: any): Observable<T>;
     getMany(filter?: any): Observable<T[]>;
