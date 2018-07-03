@@ -1,5 +1,5 @@
 import {Model} from "./base-model";
-import {Subscription} from "rxjs/Subscription";
+import {Subscription} from "rxjs-compat";
 import {ConfigNode, ModelObservable, ObservedModel} from "../utils/model-observable";
 import {Subject} from "rxjs/Subject";
 import * as _ from 'lodash';
@@ -12,7 +12,7 @@ import * as _ from 'lodash';
 export class BehaviorList<T extends Model> extends Array<T> {
     _subject: Subject<ObservedModel>;
     subscriptions: Subscription[];
-    subscriptionBehaviour: ConfigNode[];
+    subscriptionBehaviour?: ConfigNode[];
 
     constructor(initial: T[] = []) {
         super();

@@ -1,7 +1,7 @@
 import { ModelType } from "./base-model";
 export declare enum RelationType {
     ref = 0,
-    many = 1,
+    many = 1
 }
 export interface EntityAssociation {
     type: RelationType;

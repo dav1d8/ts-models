@@ -1,4 +1,4 @@
-import { Observable } from "rxjs";
+import { Observable } from "rxjs-compat";
 import { Model, ModelType } from "../model/base-model";
 import { Store } from "../store";
 import { PagedResult } from "../pagination";

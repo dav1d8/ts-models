@@ -1,8 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = require("../utils/utils");
-require("rxjs/add/operator/map");
-require("rxjs/add/operator/catch");
 var http_1 = require("@angular/common/http");
 var ApiClient = /** @class */ (function () {
     function ApiClient(_baseUrl, _http) {

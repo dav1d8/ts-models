@@ -14,11 +14,11 @@ exports.initStore = initStore;
 function register(modelArray) {
     for (var _i = 0, modelArray_1 = modelArray; _i < modelArray_1.length; _i++) {
         var entry = modelArray_1[_i];
-        if (entry.entityType) {
+        if (entry.entityType) { // instance of StoreRegistration
             exports.modelTypeMap[entry.entityType.schema.__modelName] = entry.entityType;
             exports.modelClientMap[entry.entityType.schema.__modelName] = entry.client;
         }
-        else {
+        else { // instance of ModelType
             exports.modelTypeMap[entry.schema.__modelName] = entry;
             exports.modelClientMap[entry.schema.__modelName] = undefined;
         }
@@ -52,7 +52,7 @@ function processInternal(json, modelParam, processCache, existingRef) {
         modelType = exports.modelTypeMap[modelParam];
     var model = existingRef || model_map_1.modelMap.get(modelType, json[modelType.schema.__id]) || new modelType();
     // Check.NotNull(json.$id, '$id');
-    if (json.$id) {
+    if (json.$id) { // if reference handling is enabled
         if (!processCache[json.$id])
             processCache[json.$id] = model;
         else {
@@ -93,11 +93,13 @@ function processInternal(json, modelParam, processCache, existingRef) {
                         model._data[propName] = modelList;
                     }
                 }
+                // json reference
                 else if (json[propName].$ref) {
                     var navProp = processCache[json[propName].$ref] || new modelType.schema[propName].model();
                     processCache[json[propName].$ref] = navProp;
                     model._data[propName] = navProp;
                 }
+                // complex object
                 else {
                     if (!modelType.schema[propName])
                         model._data[propName] = json[propName];

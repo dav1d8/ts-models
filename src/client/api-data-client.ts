@@ -1,11 +1,11 @@
 import {DataClient} from "./data-client";
 import {ApiClient} from "./api-client";
-import {Observable} from "rxjs/Rx";
 import {Model} from "../model";
 import {Check} from "../utils/check";
 import {PagedResult} from "../pagination";
 import {HttpClient} from "@angular/common/http";
 import {ClientMediator, RequestStartedEventArgs} from "./client-mediator.service";
+import {Observable} from "rxjs-compat";
 
 export class ApiDataClient<T extends Model> extends ApiClient implements DataClient<T> {
 

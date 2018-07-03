@@ -11,8 +11,8 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var api_client_1 = require("./api-client");
-var Rx_1 = require("rxjs/Rx");
 var check_1 = require("../utils/check");
+var rxjs_compat_1 = require("rxjs-compat");
 var ApiDataClient = /** @class */ (function (_super) {
     __extends(ApiDataClient, _super);
     function ApiDataClient(_baseUrl, _http, _mediator) {
@@ -27,7 +27,7 @@ var ApiDataClient = /** @class */ (function (_super) {
     ApiDataClient.prototype.getById = function (id) {
         var _this = this;
         var reqStarted;
-        return Rx_1.Observable.of(0)
+        return rxjs_compat_1.Observable.of(0)
             .do(function (_) { return reqStarted = _this._mediator.notifyRequestStarted('Loading...'); })
             .switchMap(function (_) { return _this.get("" + id)
             .do(function (payload) {
@@ -40,13 +40,13 @@ var ApiDataClient = /** @class */ (function (_super) {
             .catch(function (err) {
             reqStarted.error.emit(err);
             reqStarted.complete.emit();
-            return Rx_1.Observable.throw(err);
+            return rxjs_compat_1.Observable.throw(err);
         }); });
     };
     ApiDataClient.prototype.getOne = function (filter) {
         var _this = this;
         var reqStarted;
-        return Rx_1.Observable.of(0)
+        return rxjs_compat_1.Observable.of(0)
             .do(function (_) { return reqStarted = _this._mediator.notifyRequestStarted('Loading...'); })
             .switchMap(function (_) { return _this.get('', filter)
             .do(function (payload) {
@@ -59,13 +59,13 @@ var ApiDataClient = /** @class */ (function (_super) {
             .catch(function (err) {
             reqStarted.error.emit(err);
             reqStarted.complete.emit();
-            return Rx_1.Observable.throw(err);
+            return rxjs_compat_1.Observable.throw(err);
         }); });
     };
     ApiDataClient.prototype.getMany = function (filter) {
         var _this = this;
         var reqStarted;
-        return Rx_1.Observable.of(0)
+        return rxjs_compat_1.Observable.of(0)
             .do(function (_) { return reqStarted = _this._mediator.notifyRequestStarted('Loading...'); })
             .switchMap(function (_) { return _this.get("many", filter)
             .do(function (payload) {
@@ -77,7 +77,7 @@ var ApiDataClient = /** @class */ (function (_super) {
             .catch(function (err) {
             reqStarted.error.emit(err);
             reqStarted.complete.emit();
-            return Rx_1.Observable.throw(err);
+            return rxjs_compat_1.Observable.throw(err);
         }); });
     };
     ApiDataClient.prototype.getPaged = function (pageIndex, pageSize, filter) {
@@ -85,7 +85,7 @@ var ApiDataClient = /** @class */ (function (_super) {
         check_1.Check.notNull(pageIndex, "pageIndex");
         check_1.Check.notNull(pageSize, "pageSize");
         var reqStarted;
-        return Rx_1.Observable.of(0)
+        return rxjs_compat_1.Observable.of(0)
             .do(function (_) { return reqStarted = _this._mediator.notifyRequestStarted('Loading...'); })
             .switchMap(function (_) { return _this.get("paged", Object.assign(filter || {}, { pageIndex: pageIndex, pageSize: pageSize }))
             .do(function (payload) {
@@ -97,13 +97,13 @@ var ApiDataClient = /** @class */ (function (_super) {
             .catch(function (err) {
             reqStarted.error.emit(err);
             reqStarted.complete.emit();
-            return Rx_1.Observable.throw(err);
+            return rxjs_compat_1.Observable.throw(err);
         }); });
     };
     ApiDataClient.prototype.save = function (entity) {
         var _this = this;
         var reqStarted;
-        return Rx_1.Observable.of(0)
+        return rxjs_compat_1.Observable.of(0)
             .do(function (_) { return reqStarted = _this._mediator.notifyRequestStarted('Saving...'); })
             .switchMap(function (_) { return _this._saveInternal(entity)
             .do(function (_) {
@@ -113,7 +113,7 @@ var ApiDataClient = /** @class */ (function (_super) {
             .catch(function (err) {
             reqStarted.error.emit(err);
             reqStarted.complete.emit();
-            return Rx_1.Observable.throw(err);
+            return rxjs_compat_1.Observable.throw(err);
         }); });
     };
     ApiDataClient.prototype.saveMany = function (list) {
@@ -122,12 +122,12 @@ var ApiDataClient = /** @class */ (function (_super) {
             concatArray.push(_this.save(currentEntity));
             return concatArray;
         }, []);
-        return Rx_1.Observable.forkJoin(reqList).first();
+        return rxjs_compat_1.Observable.forkJoin(reqList).first();
     };
     ApiDataClient.prototype.remove = function (id) {
         var _this = this;
         var reqStarted;
-        return Rx_1.Observable.of(0)
+        return rxjs_compat_1.Observable.of(0)
             .do(function (_) { return reqStarted = _this._mediator.notifyRequestStarted('Removing...'); })
             .switchMap(function (_) { return _this.delete("" + id)
             .do(function (_) {
@@ -137,7 +137,7 @@ var ApiDataClient = /** @class */ (function (_super) {
             .catch(function (err) {
             reqStarted.error.emit(err);
             reqStarted.complete.emit();
-            return Rx_1.Observable.throw(err);
+            return rxjs_compat_1.Observable.throw(err);
         }); });
     };
     ApiDataClient.prototype._saveInternal = function (entity) {

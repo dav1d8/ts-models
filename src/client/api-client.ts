@@ -1,9 +1,7 @@
 import {Utils} from "../utils/utils";
-import {Observable} from "rxjs";
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/catch";
 import {ApiResult} from "./data-client";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Observable} from "rxjs-compat";
 
 export class ApiClient {
     protected static getQueryString(filter: any): string {

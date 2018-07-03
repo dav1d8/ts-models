@@ -22,6 +22,7 @@ var StoreModule = /** @class */ (function () {
             ]
         };
     };
+    var StoreModule_1;
     StoreModule = StoreModule_1 = __decorate([
         core_1.NgModule({
             imports: [],
@@ -30,7 +31,6 @@ var StoreModule = /** @class */ (function () {
         })
     ], StoreModule);
     return StoreModule;
-    var StoreModule_1;
 }());
 exports.StoreModule = StoreModule;
 //# sourceMappingURL=store.module.js.map

@@ -68,7 +68,7 @@ var ModelClient = /** @class */ (function (_super) {
             .do(function (result) {
             if (result)
                 _this._store.remove(id, _this.modelType.schema.__modelName);
-            else
+            else // TODO notify user
                 throw "Entity cannot be deleted";
         })
             .share();
