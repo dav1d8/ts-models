@@ -16,105 +16,50 @@ var rxjs_compat_1 = require("rxjs-compat");
 var ApiDataClient = /** @class */ (function (_super) {
     __extends(ApiDataClient, _super);
     function ApiDataClient(_baseUrl, _http, _mediator) {
-        var _this = _super.call(this, _baseUrl, _http) || this;
+        var _this = _super.call(this, _baseUrl, _http, _mediator) || this;
         _this._baseUrl = _baseUrl;
         _this._http = _http;
         _this._mediator = _mediator;
-        _this._insert = function (prepared) { return _this.put('', prepared); };
-        _this._update = function (id, patch) { return _this.patch("" + id, patch); };
+        _this._insert = function (prepared) { return _this.put('', prepared, 'Saving...'); };
+        _this._update = function (id, patch) { return _this.patch("" + id, patch, 'Saving...'); };
         return _this;
     }
     ApiDataClient.prototype.getById = function (id) {
-        var _this = this;
-        var reqStarted;
-        return rxjs_compat_1.Observable.of(0)
-            .do(function (_) { return reqStarted = _this._mediator.notifyRequestStarted('Loading...'); })
-            .switchMap(function (_) { return _this.get("" + id)
+        return this.get("" + id)
             .do(function (payload) {
             if (payload instanceof Array || payload.$values) {
                 throw "Result must be a single object or empty";
             }
-            reqStarted.success.emit();
-            reqStarted.complete.emit();
-        })
-            .catch(function (err) {
-            reqStarted.error.emit(err);
-            reqStarted.complete.emit();
-            return rxjs_compat_1.Observable.throw(err);
-        }); });
+        });
     };
     ApiDataClient.prototype.getOne = function (filter) {
-        var _this = this;
-        var reqStarted;
-        return rxjs_compat_1.Observable.of(0)
-            .do(function (_) { return reqStarted = _this._mediator.notifyRequestStarted('Loading...'); })
-            .switchMap(function (_) { return _this.get('', filter)
+        return this.get('', filter)
             .do(function (payload) {
             if (payload instanceof Array || payload.$values) {
                 throw "Result must be a single object or empty";
             }
-            reqStarted.success.emit();
-            reqStarted.complete.emit();
-        })
-            .catch(function (err) {
-            reqStarted.error.emit(err);
-            reqStarted.complete.emit();
-            return rxjs_compat_1.Observable.throw(err);
-        }); });
+        });
     };
     ApiDataClient.prototype.getMany = function (filter) {
-        var _this = this;
-        var reqStarted;
-        return rxjs_compat_1.Observable.of(0)
-            .do(function (_) { return reqStarted = _this._mediator.notifyRequestStarted('Loading...'); })
-            .switchMap(function (_) { return _this.get("many", filter)
+        return this.get("many", filter)
             .do(function (payload) {
-            if (!(payload instanceof Array || payload.$values))
+            if (!(payload instanceof Array || payload.$values)) {
                 throw "Result must be an array";
-            reqStarted.success.emit();
-            reqStarted.complete.emit();
-        })
-            .catch(function (err) {
-            reqStarted.error.emit(err);
-            reqStarted.complete.emit();
-            return rxjs_compat_1.Observable.throw(err);
-        }); });
+            }
+        });
     };
     ApiDataClient.prototype.getPaged = function (pageIndex, pageSize, filter) {
-        var _this = this;
         check_1.Check.notNull(pageIndex, "pageIndex");
         check_1.Check.notNull(pageSize, "pageSize");
-        var reqStarted;
-        return rxjs_compat_1.Observable.of(0)
-            .do(function (_) { return reqStarted = _this._mediator.notifyRequestStarted('Loading...'); })
-            .switchMap(function (_) { return _this.get("paged", Object.assign(filter || {}, { pageIndex: pageIndex, pageSize: pageSize }))
+        return this.get("paged", Object.assign(filter || {}, { pageIndex: pageIndex, pageSize: pageSize }))
             .do(function (payload) {
-            if (!(payload.items instanceof Array || payload.items.$values))
+            if (!(payload.items instanceof Array || payload.items.$values)) {
                 throw "Result must be an array";
-            reqStarted.success.emit();
-            reqStarted.complete.emit();
-        })
-            .catch(function (err) {
-            reqStarted.error.emit(err);
-            reqStarted.complete.emit();
-            return rxjs_compat_1.Observable.throw(err);
-        }); });
+            }
+        });
     };
     ApiDataClient.prototype.save = function (entity) {
-        var _this = this;
-        var reqStarted;
-        return rxjs_compat_1.Observable.of(0)
-            .do(function (_) { return reqStarted = _this._mediator.notifyRequestStarted('Saving...'); })
-            .switchMap(function (_) { return _this._saveInternal(entity)
-            .do(function (_) {
-            reqStarted.success.emit();
-            reqStarted.complete.emit();
-        })
-            .catch(function (err) {
-            reqStarted.error.emit(err);
-            reqStarted.complete.emit();
-            return rxjs_compat_1.Observable.throw(err);
-        }); });
+        return this._saveInternal(entity);
     };
     ApiDataClient.prototype.saveMany = function (list) {
         var _this = this;
@@ -125,20 +70,7 @@ var ApiDataClient = /** @class */ (function (_super) {
         return rxjs_compat_1.Observable.forkJoin(reqList).first();
     };
     ApiDataClient.prototype.remove = function (id) {
-        var _this = this;
-        var reqStarted;
-        return rxjs_compat_1.Observable.of(0)
-            .do(function (_) { return reqStarted = _this._mediator.notifyRequestStarted('Removing...'); })
-            .switchMap(function (_) { return _this.delete("" + id)
-            .do(function (_) {
-            reqStarted.success.emit();
-            reqStarted.complete.emit();
-        })
-            .catch(function (err) {
-            reqStarted.error.emit(err);
-            reqStarted.complete.emit();
-            return rxjs_compat_1.Observable.throw(err);
-        }); });
+        return this.delete("" + id, 'Removing...');
     };
     ApiDataClient.prototype._saveInternal = function (entity) {
         if (entity._isNew)

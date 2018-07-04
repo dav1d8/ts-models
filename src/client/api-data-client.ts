@@ -4,7 +4,7 @@ import {Model} from "../model";
 import {Check} from "../utils/check";
 import {PagedResult} from "../pagination";
 import {HttpClient} from "@angular/common/http";
-import {ClientMediator, RequestStartedEventArgs} from "./client-mediator.service";
+import {ClientMediator} from "./client-mediator.service";
 import {Observable} from "rxjs-compat";
 
 export class ApiDataClient<T extends Model> extends ApiClient implements DataClient<T> {
@@ -12,109 +12,50 @@ export class ApiDataClient<T extends Model> extends ApiClient implements DataCli
     constructor(protected _baseUrl: string,
                 protected _http: HttpClient,
                 protected _mediator: ClientMediator) {
-        super(_baseUrl, _http);
+        super(_baseUrl, _http, _mediator);
     }
 
     getById(id: number): Observable<T> {
-
-        let reqStarted: RequestStartedEventArgs;
-
-        return Observable.of(0)
-            .do(_ => reqStarted = this._mediator.notifyRequestStarted('Loading...'))
-            .switchMap(_ => this.get(`${id}`)
-                .do(payload => {
-                    if (payload instanceof Array || payload.$values) {
-                        throw "Result must be a single object or empty";
-                    }
-                    reqStarted.success.emit();
-                    reqStarted.complete.emit();
-                })
-                .catch(err => {
-                    reqStarted.error.emit(err);
-                    reqStarted.complete.emit();
-                    return Observable.throw(err);
-                })
-            );
+        return this.get(`${id}`)
+            .do(payload => {
+                if (payload instanceof Array || payload.$values) {
+                    throw "Result must be a single object or empty";
+                }
+            });
     }
 
     getOne(filter?: any): Observable<T> {
-        let reqStarted: RequestStartedEventArgs;
-
-        return Observable.of(0)
-            .do(_ => reqStarted = this._mediator.notifyRequestStarted('Loading...'))
-            .switchMap(_ => this.get('', filter)
-                .do(payload => {
-                    if (payload instanceof Array || payload.$values) {
-                        throw "Result must be a single object or empty";
-                    }
-                    reqStarted.success.emit();
-                    reqStarted.complete.emit();
-                })
-                .catch(err => {
-                    reqStarted.error.emit(err);
-                    reqStarted.complete.emit();
-                    return Observable.throw(err);
-                })
-            );
+        return this.get('', filter)
+            .do(payload => {
+                if (payload instanceof Array || payload.$values) {
+                    throw "Result must be a single object or empty";
+                }
+            });
     }
 
     getMany(filter?: any): Observable<T[]> {
-        let reqStarted: RequestStartedEventArgs;
-
-        return Observable.of(0)
-            .do(_ => reqStarted = this._mediator.notifyRequestStarted('Loading...'))
-            .switchMap(_ => this.get("many", filter)
-                .do(payload => {
-                    if (!(payload instanceof Array || payload.$values))
-                        throw "Result must be an array";
-                    reqStarted.success.emit();
-                    reqStarted.complete.emit();
-                })
-                .catch(err => {
-                    reqStarted.error.emit(err);
-                    reqStarted.complete.emit();
-                    return Observable.throw(err);
-                }));
+        return this.get("many", filter)
+            .do(payload => {
+                if (!(payload instanceof Array || payload.$values)) {
+                    throw "Result must be an array";
+                }
+            });
     }
 
     getPaged(pageIndex: number, pageSize: number, filter?: any): Observable<PagedResult<T>> {
         Check.notNull(pageIndex, "pageIndex");
         Check.notNull(pageSize, "pageSize");
 
-        let reqStarted: RequestStartedEventArgs;
-        return Observable.of(0)
-            .do(_ => reqStarted = this._mediator.notifyRequestStarted('Loading...'))
-            .switchMap(_ => this.get("paged", Object.assign(filter || {}, {pageIndex, pageSize}))
-                .do((payload: PagedResult<any>) => {
-                    if (!(payload.items instanceof Array || (<any>payload.items).$values))
-                        throw "Result must be an array";
-                    reqStarted.success.emit();
-                    reqStarted.complete.emit();
-                })
-                .catch(err => {
-                    reqStarted.error.emit(err);
-                    reqStarted.complete.emit();
-                    return Observable.throw(err);
-                })
-            );
+        return this.get("paged", Object.assign(filter || {}, {pageIndex, pageSize}))
+            .do((payload: PagedResult<any>) => {
+                if (!(payload.items instanceof Array || (<any>payload.items).$values)) {
+                    throw "Result must be an array";
+                }
+            });
     }
 
     save(entity: T): Observable<T> {
-        let reqStarted: RequestStartedEventArgs;
-
-        return Observable.of(0)
-            .do(_ => reqStarted = this._mediator.notifyRequestStarted('Saving...'))
-            .switchMap(_ => this._saveInternal(entity)
-                .do(_ => {
-                    reqStarted.success.emit();
-                    reqStarted.complete.emit();
-                })
-                .catch(err => {
-                    reqStarted.error.emit(err);
-                    reqStarted.complete.emit();
-                    return Observable.throw(err);
-                })
-            );
+        return this._saveInternal(entity);
     }
 
     saveMany(list: T[]): Observable<T[]> {
@@ -128,26 +69,12 @@ export class ApiDataClient<T extends Model> extends ApiClient implements DataCli
     }
 
     remove(id: number): Observable<boolean> {
-        let reqStarted: RequestStartedEventArgs;
-
-        return Observable.of(0)
-            .do(_ => reqStarted = this._mediator.notifyRequestStarted('Removing...'))
-            .switchMap(_ => this.delete(`${id}`)
-                .do(_ => {
-                    reqStarted.success.emit();
-                    reqStarted.complete.emit();
-                })
-                .catch(err => {
-                    reqStarted.error.emit(err);
-                    reqStarted.complete.emit();
-                    return Observable.throw(err);
-                })
-            );
+        return this.delete(`${id}`, 'Removing...');
     }
 
-    private _insert = (prepared: any) => this.put('', prepared);
+    private _insert = (prepared: any) => this.put('', prepared, 'Saving...');
 
-    private _update = (id: number, patch: any) => this.patch(`${id}`, patch);
+    private _update = (id: number, patch: any) => this.patch(`${id}`, patch, 'Saving...');
 
     private _saveInternal(entity: T): Observable<any> {
         if (entity._isNew)
