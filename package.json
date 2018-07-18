@@ -10,12 +10,12 @@
     "rxjs-compat": "^6.2.1"
   },
   "dependencies": {
-    "@angular/common": "6.0.7",
-    "@angular/core": "6.0.7",
+    "@angular/common": "^6.0.7",
+    "@angular/core": "^6.0.7",
     "fast-json-patch": "^2.0.6",
     "lodash": "4.17.10",
-    "rxjs": "6.2.1",
-    "rxjs-compat": "6.2.1",
+    "rxjs": "^6.2.1",
+    "rxjs-compat": "^6.2.1",
     "zone.js": "0.8.26"
   },
   "devDependencies": {
